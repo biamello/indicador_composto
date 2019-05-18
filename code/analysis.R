@@ -163,4 +163,18 @@ walk2(data_prop$cor_graf, data_prop$ano,
 ## escolher 2 anos da base para analisas
 ## procurar por idh, desemprego se tem
 
+## Nao sei qual das duas usar 
+pib_preco_corrente <- read_excel("pib_preco_corrente.xlsx")
+pib_preco_corrente %>% gather(Ano,pib_pc,-c(Municipio,Codigo))
 
+pib_per_capita <- read_excel("pib_per_capita.xlsx")
+pib_per_capita %>% gather(Ano, Pib_per_capita, - c(Codigo,Municipio))
+
+
+obitos = read_csv2("A221401201_37_215_109.csv")
+obitos$Municipio = str_extract_all(obitos$Municipio,"[:number:]{1,}")
+obitos[1:853,] %>% gather(Ano, Num_obitos,-Municipio)
+
+morbidade = read_csv2("A225609201_37_215_109.csv")
+morbidade$Municipio = str_extract_all(morbidade$Municipio,"[:number:]{1,}")
+morbidade %>% select(-Total) %>% gather(Ano,Num_inter,-Municipio)
